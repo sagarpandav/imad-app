@@ -5,12 +5,62 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
+var articleone = {
+    title : 'Article one',
+    heading : 'Article one',
+    date : '15 Aug 2017',
+    content : ` 
+                <p>
+                    This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one.
+                </p>
+                <p>
+                    This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one.
+                </p>
+                <p>
+                    This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one.
+                </p>`
+    
+};
+
+function createtemp(data){
+    var title = data.title;
+    var heading = data.heading;
+    var date =  data.date;
+    var content = dat.content;
+    var htmltemp = `
+        <html>
+        <head>
+            <title>${title}</title>
+            <link href="/ui/style.css" rel="stylesheet" />
+        </head>
+        <body>
+            <div class = "container">
+                <div>
+                    <a href="/">Home</a>
+                </div>
+                <br>
+                <h3>
+                    ${heading}
+                </h3>
+                <div>
+                    ${date}
+                </div>
+                <div>
+                    ${content}
+                </div>
+            </div>
+        </body>    
+        </html>
+    `;
+    return htmltemp;
+}
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 app.get('/article-one',function(req,res){
-   res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+   res.send(createtemp(articleone));
 });
 
 app.get('/article-two',function(req,res){
