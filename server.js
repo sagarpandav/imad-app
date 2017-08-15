@@ -5,8 +5,8 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleone = {
-    title : 'Article one',
+var articles = {
+    "article-one": {title : 'Article one',
     heading : 'Article one',
     date : '15 Aug 2017',
     content : ` 
@@ -18,9 +18,29 @@ var articleone = {
                 </p>
                 <p>
                     This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one. This is the Article one.
-                </p>`
-    
+                </p>`},
+    "article-two": {title : 'Article two',
+    heading : 'Article two',
+    date : '14 Aug 2017',
+    content : ` 
+                <p>This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article.
+            </p>
+            <p>This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article.
+            </p>
+            <p>This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article.
+            </p>`},
+    "article-three": {title : 'Article three',
+    heading : 'Article three',
+    date : '13 Aug 2017',
+    content : ` 
+                <p>This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article.
+            </p>
+            <p>This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article.
+            </p>
+            <p>This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article. This is the Article.
+            </p>`}
 };
+
 
 function createtemp(data){
     var title = data.title;
@@ -59,16 +79,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req,res){
-   res.send(createtemp(articleone));
-});
-
-app.get('/article-two',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+app.get('/:articlename',function(req,res){
+    //articlename =  article-one
+    //articles[articlename] = {} content of article name
+    var articlename = req.params.articlename; 
+   res.send(createtemp(articles[articlename]));
 });
 
 app.get('/ui/style.css', function (req, res) {
