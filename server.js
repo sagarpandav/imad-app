@@ -88,7 +88,6 @@ app.get('/counter',function(req, res){
 var names = [];
 app.get('/submit-name',function(req,res){
    //Get the names from the request
-    res.send('agsdd');
    var name = req.query.name;
   
    names.push(name);
